@@ -1,0 +1,469 @@
+  <!-- <style>
+    :root {
+        --primary-color: #fd7922;
+        --secondary-color: #e86100;
+        --accent-color: #ffc107;
+        --text-color: #333;
+        --background-color: #f8f9fa;
+    }
+
+    .recipe-single-view {
+        background-color: var(--background-color);
+        color: var(--text-color);
+        font-family: Arial, sans-serif;
+    }
+
+    .recipe-header {
+        height: 60vh;
+        min-height: 400px;
+        background-size: cover;
+        background-position: center;
+        position: relative;
+        color: white;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    
+    .recipe-header-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.7));
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        padding: 2rem;
+    }
+    
+    .recipe-title {
+        font-size: 3.5rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+    }
+    
+    .recipe-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+    
+    .recipe-meta-item {
+        background: var(--primary-color);
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        font-weight: bold;
+        transition: background-color 0.3s ease;
+    }
+
+    .recipe-meta-item:hover {
+        background: var(--secondary-color);
+    }
+    
+    .recipe-content {
+        max-width: 800px;
+        margin: -3rem auto 0;
+        padding: 2rem;
+        background-color: white;
+        border-radius: 15px;
+        box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        position: relative;
+    }
+    
+    .recipe-section {
+        margin-bottom: 2.5rem;
+    }
+    
+    .recipe-section-title {
+        color: var(--primary-color);
+        font-size: 1.8rem;
+        margin-bottom: 1rem;
+        border-bottom: 2px solid var(--primary-color);
+        padding-bottom: 0.5rem;
+    }
+    
+    .ingredient-list, .instruction-list {
+        list-style-type: none;
+        padding-left: 0;
+    }
+    
+    .ingredient-list li, .instruction-list li {
+        margin-bottom: 0.75rem;
+        padding-left: 1.5rem;
+        position: relative;
+    }
+    
+    .ingredient-list li:before {
+        content: '•';
+        color: var(--primary-color);
+        position: absolute;
+        left: 0;
+        font-size: 1.2rem;
+    }
+    
+    .instruction-list li {
+        counter-increment: step-counter;
+    }
+    
+    .instruction-list li:before {
+        content: counter(step-counter);
+        color: white;
+        background: var(--primary-color);
+        border-radius: 50%;
+        width: 1.5rem;
+        height: 1.5rem;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+    
+    .recipe-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-top: 1rem;
+    }
+    
+    .recipe-tag {
+        background: var(--accent-color);
+        color: var(--text-color);
+        padding: 0.25rem 0.75rem;
+        border-radius: 15px;
+        font-weight: 500;
+    }
+    
+    .recipe-rating {
+        display: flex;
+        align-items: center;
+        margin-top: 1rem;
+    }
+    
+    .recipe-rating .stars {
+        color: var(--accent-color);
+        margin-right: 0.5rem;
+    }
+
+    @media (max-width: 768px) {
+        .recipe-title {
+            font-size: 2.5rem;
+        }
+        .recipe-content {
+            margin-top: -2rem;
+            padding: 1.5rem;
+        }
+    }
+</style>
+
+<div class="recipe-single-view">
+    <div class="recipe-header" [style.background-image]="'url(' + resData.image + ')'">
+        <div class="recipe-header-overlay">
+            <h1 class="recipe-title">{{resData.name}}</h1>
+            <div class="recipe-meta">
+                <span class="recipe-meta-item">{{resData.cuisine}} Cuisine</span>
+                <span class="recipe-meta-item">{{resData.difficulty}}</span>
+                <span class="recipe-meta-item">{{resData.prepTimeMinutes + resData.cookTimeMinutes}} mins</span>
+                <span class="recipe-meta-item">{{resData.caloriesPerServing}} cal/serving</span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="recipe-content">
+      <div class="recipe-section">
+        <h2 class="recipe-section-title">Ingredients</h2>
+        <ul class="ingredient-list">
+          <li *ngFor="let ingredient of resData.ingredients">{{ingredient}}</li>
+        </ul>
+      </div>
+      
+      <div class="recipe-section">
+        <h2 class="recipe-section-title">Instructions</h2>
+        <ol class="instruction-list">
+          <li *ngFor="let instruction of resData.instructions">{{instruction}}</li>
+        </ol>
+      </div>
+      
+      <div class="recipe-section">
+        <h2 class="recipe-section-title">Additional Information</h2>
+        <p><strong>Servings:</strong> {{resData.servings}}</p>
+        <p><strong>Meal Type:</strong> {{resData.mealType.join(', ')}}</p>
+        <div class="recipe-tags">
+          <span class="recipe-tag" *ngFor="let tag of resData.tags">{{tag}}</span>
+        </div>
+        <div class="recipe-rating">
+          <span class="stars">
+            <i class="fas fa-star" *ngFor="let star of [1,2,3,4,5]" [class.far]="star > resData.rating"></i>
+          </span>
+          <span>{{resData.rating}} ({{resData.reviewCount}} reviews)</span>
+        </div>
+      </div>
+    </div>
+</div> -->
+<!-- <style>
+  :root {
+      --primary-color: #fd7922;
+      --secondary-color: #e86100;
+      --accent-color: #ffc107;
+      --text-color: #333;
+      --background-color: #f8f9fa;
+      --light-orange: #ffe0cc;
+      --dark-orange: #cc5500;
+  }
+
+  .recipe-single-view {
+      background-color: var(--background-color);
+      color: var(--text-color);
+      font-family: Arial, sans-serif;
+  }
+
+  .recipe-header {
+      height: 60vh;
+      min-height: 400px;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+      color: white;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  }
+  
+  .recipe-header-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.7));
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 2rem;
+  }
+  
+  .recipe-title {
+      font-size: 3.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: var(--accent-color);
+  }
+  
+  .recipe-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+  }
+  
+  .recipe-meta-item {
+      background: var(--primary-color);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+  }
+
+  .recipe-meta-item:hover {
+      background: var(--secondary-color);
+  }
+
+  .recipe-meta-item.calories {
+      background: var(--accent-color);
+      color: var(--dark-orange);
+  }
+  
+  .recipe-content {
+      max-width: 800px;
+      margin: -3rem auto 0;
+      padding: 2rem;
+      background-color: white;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+      position: relative;
+  }
+  
+  .recipe-section {
+      margin-bottom: 2.5rem;
+      padding: 1.5rem;
+      background-color: var(--light-orange);
+      border-radius: 10px;
+  }
+  
+  .recipe-section-title {
+      color: var(--dark-orange);
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      border-bottom: 2px solid var(--primary-color);
+      padding-bottom: 0.5rem;
+  }
+  
+  .ingredient-list, .instruction-list {
+      list-style-type: none;
+      padding-left: 0;
+  }
+  
+  .ingredient-list li, .instruction-list li {
+      margin-bottom: 0.75rem;
+      padding-left: 1.5rem;
+      position: relative;
+  }
+  
+  .ingredient-list li:before {
+      content: '•';
+      color: var(--primary-color);
+      position: absolute;
+      left: 0;
+      font-size: 1.2rem;
+  }
+  
+  .instruction-list li {
+      counter-increment: step-counter;
+  }
+  
+  .instruction-list li:before {
+      content: counter(step-counter);
+      color: white;
+      background: var(--primary-color);
+      border-radius: 50%;
+      width: 1.5rem;
+      height: 1.5rem;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      left: 0;
+      top: 0;
+  }
+  
+  .recipe-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1rem;
+  }
+  
+  .recipe-tag {
+      background: var(--accent-color);
+      color: var(--dark-orange);
+      padding: 0.25rem 0.75rem;
+      border-radius: 15px;
+      font-weight: 500;
+  }
+  
+  .recipe-rating {
+      display: flex;
+      align-items: center;
+      margin-top: 1rem;
+      background-color: var(--light-orange);
+      padding: 0.5rem 1rem;
+      border-radius: 10px;
+  }
+  
+  .recipe-rating .stars {
+      color: var(--accent-color);
+      margin-right: 0.5rem;
+  }
+
+  @media (max-width: 768px) {
+      .recipe-title {
+          font-size: 2.5rem;
+      }
+      .recipe-content {
+          margin-top: -2rem;
+          padding: 1.5rem;
+      }
+  }
+</style>
+
+<div class="recipe-single-view">
+  <div class="recipe-header" [style.background-image]="'url(' + resData.image + ')'">
+      <div class="recipe-header-overlay">
+          <h1 class="recipe-title">{{resData.name}}</h1>
+          <div class="recipe-meta">
+              <span class="recipe-meta-item">{{resData.cuisine}} Cuisine</span>
+              <span class="recipe-meta-item">{{resData.difficulty}}</span>
+              <span class="recipe-meta-item">{{resData.prepTimeMinutes + resData.cookTimeMinutes}} mins</span>
+              <span class="recipe-meta-item calories">{{resData.caloriesPerServing}} cal/serving</span>
+          </div>
+      </div>
+  </div>
+  
+  <div class="recipe-content">
+      <div class="recipe-section">
+          <h2 class="recipe-section-title">Ingredients</h2>
+          <ul class="ingredient-list">
+              <li *ngFor="let ingredient of resData.ingredients">{{ingredient}}</li>
+          </ul>
+      </div>
+      
+      <div class="recipe-section">
+          <h2 class="recipe-section-title">Instructions</h2>
+          <ol class="instruction-list">
+              <li *ngFor="let instruction of resData.instructions">{{instruction}}</li>
+          </ol>
+      </div>
+      
+      <div class="recipe-section">
+          <h2 class="recipe-section-title">Additional Information</h2>
+          <p><strong>Servings:</strong> {{resData.servings}}</p>
+          <p><strong>Meal Type:</strong> {{resData.mealType.join(', ')}}</p>
+          <div class="recipe-tags">
+              <span class="recipe-tag" *ngFor="let tag of resData.tags">{{tag}}</span>
+          </div>
+          <div class="recipe-rating">
+              <span class="stars">
+                  <i class="fas fa-star" *ngFor="let star of [1,2,3,4,5]" [class.far]="star > resData.rating"></i>
+              </span>
+              <span>{{resData.rating}} ({{resData.reviewCount}} reviews)</span>
+          </div>
+      </div>
+  </div>
+</div> -->
+
+<div class="recipe-single-view">
+  <div class="recipe-header" [style.background-image]="'url(' + resData.image + ')'">
+      <div class="recipe-header-overlay">
+          <h1 class="recipe-title">{{resData.name}}</h1>
+          <div class="recipe-meta">
+              <span class="recipe-meta-item">{{resData.cuisine}} Cuisine</span>
+              <span class="recipe-meta-item">{{resData.difficulty}}</span>
+              <span class="recipe-meta-item">{{resData.prepTimeMinutes + resData.cookTimeMinutes}} mins</span>
+              <span class="recipe-meta-item calories">{{resData.caloriesPerServing}} cal/serving</span>
+          </div>
+      </div>
+  </div>
+  
+  <div class="recipe-content">
+      <div class="recipe-section">
+          <h2 class="recipe-section-title">Ingredients</h2>
+          <ul class="ingredient-list">
+              <li *ngFor="let ingredient of resData.ingredients">{{ingredient}}</li>
+          </ul>
+      </div>
+      
+      <div class="recipe-section">
+          <h2 class="recipe-section-title">Instructions</h2>
+          <ol class="instruction-list">
+              <li *ngFor="let instruction of resData.instructions">{{instruction}}</li>
+          </ol>
+      </div>
+      
+      <div class="recipe-section">
+          <h2 class="recipe-section-title">Additional Information</h2>
+          <p><strong>Servings:</strong> {{resData.servings}}</p>
+          <p><strong>Meal Type:</strong> {{resData.mealType.join(', ')}}</p>
+          <div class="recipe-tags">
+              <span class="recipe-tag" *ngFor="let tag of resData.tags">{{tag}}</span>
+          </div>
+          <div class="recipe-rating">
+              <span class="stars">
+                  <i class="fas fa-star" *ngFor="let star of [1,2,3,4,5]" [class.far]="star > resData.rating"></i>
+              </span>
+              <span>{{resData.rating}} ({{resData.reviewCount}} reviews)</span>
+          </div>
+      </div>
+  </div>
+</div>

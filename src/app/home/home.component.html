@@ -1,0 +1,105 @@
+<!-- 
+  
+  <div class="jumbotron jumbotron-fluid text-white">
+      <div class="container text-center">
+          <h1 class="display-4 mb-4">Find Delicious Recipes</h1>
+          <p class="lead mb-5">Discover and explore mouth-watering recipes for every occasion.</p>
+          <form class="search-form mt-4">
+              <div class="input-group">
+                  <input [(ngModel)]="searchData" id="d1" name="sdata" type="text" class="form-control form-control-lg" placeholder="Search by Recipe name and cuisine...
+                  ">
+                  <button class="btn btn-primary btn-lg" type="button">Search</button>
+              </div>
+          </form>
+      </div>
+  </div>
+  
+  <div class="container mt-5">
+    <div class="filter-section mb-5">
+        <button class="btn btn-filter">All</button>
+        <button class="btn btn-filter" >Lunch</button>
+        <button class="btn btn-filter">Snack</button>
+        <button class="btn btn-filter">Dinner</button>
+        <button class="btn btn-filter">Appetizer</button>
+        <button class="btn btn-filter" >Side Dish</button>
+    </div>
+
+</div>
+
+  <div class="container mt-5 mb-5">
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+            <div *ngFor="let i of resList | search: searchData" class="col">
+              <a routerLink="/single-view/{{i.id}}" class="text-decoration-none">
+                <div class="card recipe-card h-100">
+                  <img [src]="i.image" class="card-img-top" [alt]="i.name">
+                  <div class="card-body">
+                    <h5 class="card-title">{{i.name}}</h5>
+                    <div class="card-info">
+                      <span class="card-cuisine">{{i.cuisine}}</span>
+                      <span class="card-difficulty">{{i.difficulty}}</span>
+                    </div>
+                    <p class="card-prep-time">
+                      <i class="fas fa-clock"></i> 
+                      {{ i.prepTimeMinutes + i.cookTimeMinutes }} minutes
+                    </p>
+                  </div>
+                </div>
+              </a>
+          </div>
+      </div>
+  </div> -->
+
+  <div class="jumbotron jumbotron-fluid text-white">
+    <div class="container text-center">
+        <h1 class="display-4 mb-4">Find Delicious Recipes</h1>
+        <p class="lead mb-5">Discover and explore mouth-watering recipes for every occasion.</p>
+        <form class="search-form mt-4">
+            <div class="input-group">
+                <input 
+                    [(ngModel)]="searchData" 
+                    (ngModelChange)="onSearchChange($event)" 
+                    id="d1" 
+                    name="sdata" 
+                    type="text" 
+                    class="form-control form-control-lg" 
+                    placeholder="Search by Recipe name and cuisine..."
+                >
+                <i class="fas fa-search search-icon"></i>
+            </div>
+        </form>
+            </div>
+</div>
+
+<div class="container mt-5">
+    <div class="filter-section mb-5">
+        <button class="btn btn-filter" (click)="filterRecipes('All')">All</button>
+        <button class="btn btn-filter" (click)="filterRecipes('Lunch')">Lunch</button>
+        <button class="btn btn-filter" (click)="filterRecipes('Snack')">Snack</button>
+        <button class="btn btn-filter" (click)="filterRecipes('Dinner')">Dinner</button>
+        <button class="btn btn-filter" (click)="filterRecipes('Appetizer')">Appetizer</button>
+        <button class="btn btn-filter" (click)="filterRecipes('Side Dish')">Side Dish</button>
+    </div>
+</div>
+
+<div class="container mt-5 mb-5">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+        <div *ngFor="let i of filteredList" class="col">
+            <a routerLink="/single-view/{{i.id}}" class="text-decoration-none">
+                <div class="card recipe-card h-100">
+                    <img [src]="i.image" class="card-img-top" [alt]="i.name">
+                    <div class="card-body">
+                        <h5 class="card-title">{{i.name}}</h5>
+                        <div class="card-info">
+                            <span class="card-cuisine">{{i.cuisine}}</span>
+                            <span class="card-difficulty">{{i.difficulty}}</span>
+                        </div>
+                        <p class="card-prep-time">
+                            <i class="fas fa-clock"></i> 
+                            {{ i.prepTimeMinutes + i.cookTimeMinutes }} minutes
+                        </p>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>

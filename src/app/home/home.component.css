@@ -1,0 +1,152 @@
+.jumbotron {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://i.postimg.cc/7ZXFW1md/360-F-621237935-NGk8s-Fo-Fz-Ra-Ch-N0-Ug-S5t-Bcr-CAtj-C9w-P8.jpg');
+  background-size: cover;
+  background-position: center;
+  padding: 8rem 2rem;
+  border-radius: 0;
+}
+
+.search-form {
+  max-width: 600px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.search-form .input-group {
+  position: relative;
+}
+
+.search-form .form-control {
+  padding: 0.75rem 3rem 0.75rem 2rem; /* Adjust padding to make room for the icon */
+  border: 2px solid #fd7922;
+  border-radius: 30px;
+  font-size: 1rem;
+  flex: 1;
+  transition: box-shadow 0.3s ease;
+}
+
+.search-form .form-control:focus {
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+/* .search-form .form-control::placeholder {
+  color: transparent; 
+}
+ */
+.search-form .search-icon {
+  position: absolute;
+  top: 50%;
+  right: 1rem;
+  transform: translateY(-50%);
+  color: #fd7922;
+  font-size: 1.25rem; /* Adjust size as needed */
+  pointer-events: none; /* Ensure the icon doesn't interfere with input */
+}
+
+.jumbotron h1 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+}
+
+.jumbotron p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+.recipe-card {
+  transition: all 0.3s ease;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.recipe-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(253, 121, 34, 0.2);
+}
+
+.card-img-top {
+  height: 200px;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.recipe-card:hover .card-img-top {
+  transform: scale(1.05);
+}
+
+.card-body {
+  padding: 1.5rem;
+  background-color: #fff;
+}
+
+.card-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 0.75rem;
+}
+
+.card-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.card-cuisine, .card-difficulty {
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+}
+
+.card-cuisine {
+  background-color: #fd7922;
+  color: white;
+}
+
+.card-difficulty {
+  background-color: #e9ecef;
+  color: #495057;
+}
+
+.card-prep-time {
+  font-size: 0.9rem;
+  color: #6c757d;
+  display: flex;
+  align-items: center;
+}
+
+.card-prep-time i {
+  margin-right: 0.5rem;
+  color: #fd7922;
+}
+
+/* styles.css */
+.filter-section {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.btn-filter {
+  background-color: #fd7922;
+  border-color: #fd7922;
+  color: white;
+  border-radius: 20px;
+  padding: 0.5rem 1rem;
+  margin: 0.5rem;
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  cursor: pointer;
+}
+
+.btn-filter:hover {
+  background-color: #e86100;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(253, 121, 34, 0.2);
+}
